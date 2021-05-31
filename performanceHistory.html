@@ -24,6 +24,40 @@
     <div class="md:w-1/2 mx-3 text-xl border-2 rounded border-blue-800 text-center"><a href="performanceHistory.html">Performance History</a></div>
 
   </div>
+
+  <!-- Select Exercise -->
+  <div id="exercise-filter" class="grid grid-cols-1 divide-y mt-8 text-center">
+    <label class="" for="exercise-filter">Choose an Exercise:</label>
+
+    <select name="exercises" id="exercise-select" class="mx-auto w-35 border border-blue-800">
+      <option value="">--Please choose an option--</option>
+      <option value="Bench Press">Bench Press</option>
+      <option value="Dumbbell Rows">Dumbbell Rows</option>
+      
+    </select>
+  </div>
+
+  <!-- Workout Chart -->
+  <table class="mx-auto mt-8 table-auto border-collapse border border-blue-800">
+    <tr>
+      <th class="border border-blue-800 text-center px-4">Date</th>
+      <th class="border border-blue-800 text-center px-4">Reps/Time</th>
+      <th class="border border-blue-800 text-center px-4">Weight</th>
+      <th class="border border-blue-800 text-center px-4">Rating</th>
+    </tr>
+    <tr>
+      <td class="border border-blue-800 text-center">5/27/2021</td>
+      <td class="border border-blue-800 text-center">15</td>
+      <td class="border border-blue-800 text-center">135</td>
+      <td class="border border-blue-800 text-center">💪🏼</td>
+    </tr>
+    <tr>
+      <td class="border border-blue-800 text-center">5/27/2021</td>
+      <td class="border border-blue-800 text-center">20</td>
+      <td class="border border-blue-800 text-center">90</td>
+      <td class="border border-blue-800 text-center">💩</td>
+    </tr>
+  </table>
   
 
   <!-- Put the Firebase config here -->
