@@ -9,6 +9,43 @@
     <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.7.3/firebase-ui-auth.css" />
 </head>
 <body>
+    <div class="sign-in-or-sign-out"></div>
+    <div class="md:flex">
+        <div>
+        <a href="index.html"><img class="md:w-1/4 m-4 rounded-xl" src="assets/Gains Task Logo.jpg"></a>
+        </div>
+        <h1 class="md:mx-auto my-auto text-center text-3xl m-2 p-4">Workout Log</h1>
+    </div>   
+    
+    <!-- Site Navigation -->
+  <div class="md:flex">
+    <div class="md:w-1/2 mx-3 text-xl border-2 border-blue-800 rounded text-center"><a href="workoutLog.html">Workout Log</a></div>
+    <div class="md:w-1/2 mx-3 text-xl border-2 rounded border-blue-800 text-center"><a href="performanceHistory.html">Performance History</a></div>
+
+  </div>
+  
+
+  <!-- Put the Firebase config here -->
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/8.2.7/firebase-app.js"></script>
+  <!-- Firebase Auth -->
+  <script src="https://www.gstatic.com/firebasejs/8.2.7/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/ui/4.7.3/firebase-ui-auth.js"></script>
+
+  <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+    apiKey: "AIzaSyCCABR8tEHrxP280JMczhIiuw8Fh3Lgr30",
+    authDomain: "kiei-final-project-dbc73.firebaseapp.com",
+    projectId: "kiei-final-project-dbc73",
+    storageBucket: "kiei-final-project-dbc73.appspot.com",
+    messagingSenderId: "985516584286",
+    appId: "1:985516584286:web:7d90bf95ebd5ad0164f3cf"
+    } // replace
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+  </script>
+  <script src="index.js"></script>
     
 </body>
 </html>
