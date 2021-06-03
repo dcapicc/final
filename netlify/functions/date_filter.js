@@ -44,21 +44,16 @@ exports.handler = async function(event) {
           console.log(exerciseId)
 
           // performa a query against the firestore for the name 
-          let exerciseQuery = await db.collection(`exercises`).where(`exerciseId`, `==`, exerciseId).get()
+          let exerciseRef = await db.collection(`exercises`).doc(exerciseId).get()
 
-          let exercises = exerciseQuery.docs
-
-          for (let exercisesIndex=0; exercisesIndex < exercises.length; exercisesIndex++) {
-
-
-            // Get the data from the document
-            let exercisesData = exercises[exercisesIndex].data()
-
+          let exercise = exerciseRef.data()
+          
             // Create an object to be added to the return value
             let activityObject = {
               workoutId: workoutId,
               workoutDate: workoutData.date,
               activityId: activityId,
+              exerciseName: exercise,
               repsOrTime: activityData.repsOrTime,
               weight: activityData.weight,
               rating: activityData.rating
@@ -68,7 +63,7 @@ exports.handler = async function(event) {
             // add the object to the return value
             returnValue.push(activityObject)
 
-          }
+          
           
               
       }
