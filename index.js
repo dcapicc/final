@@ -34,10 +34,12 @@ firebase.auth().onAuthStateChanged(async function(user) {
             console.log(date)
             // Build the url for our date filter API
             let url = `/.netlify/functions/date_filter?userId=${user.uid}&date=${date}`
-
+            // Get the response
             let response = await fetch(url)
-            // Refresh the page when done fetching the lambda function
-            location.reload()
+            // Ask for the json-formatted data
+            let json = await response.json()
+            console.log(json)
+            
         })
 
   } else {
