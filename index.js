@@ -20,6 +20,26 @@ firebase.auth().onAuthStateChanged(async function(user) {
       document.location.href = `index.html`
     })
 
+    // Date Filter
+        // get a reference to the date filter
+        let dateFilter = document.querySelector(`#date-filter`)
+        // add event listener for the post comment button
+        dateFilter.addEventListener(`change`, async function(event){
+            // ignore default
+            event.preventDefault()
+            // get a reference to the input
+            let dateSelected = document.querySelector(`#workout-date`)
+            // get the date
+            let date = dateSelected.value
+            console.log(date)
+            // Build the url for our date filter API
+            let url = `/.netlify/functions/date_filter?userId=${user.uid}&date=${date}`
+
+            let response = await fetch(url)
+            // Refresh the page when done fetching the lambda function
+            location.reload()
+        })
+
   } else {
     // Signed out
     console.log('signed out')
