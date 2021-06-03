@@ -57,15 +57,11 @@ exports.handler = async function(event) {
               repsOrTime: activityData.repsOrTime,
               weight: activityData.weight,
               rating: activityData.rating
-
             }
 
             // add the object to the return value
             returnValue.push(activityObject)
 
-          
-          
-              
       }
 
     }
