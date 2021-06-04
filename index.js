@@ -39,7 +39,27 @@ firebase.auth().onAuthStateChanged(async function(user) {
             // Ask for the json-formatted data
             let json = await response.json()
             console.log(json)
-            
+
+            // Get a reference to the workout chart
+            let workoutChart = document.querySelector(`#workout-chart`)
+
+            // Loop through the json data
+            for (let workoutIndex=0; workoutIndex < json.length; workoutIndex++) {
+              // Store each set in memory
+              let set = json[workoutIndex]
+
+              workoutChart.insertAdjacentHTML(`beforeend`, `
+              
+                <tr>
+                  <td class="border border-blue-800 text-center">${set.exerciseName.exercise}</td>
+                  <td class="border border-blue-800 text-center">${set.repsOrTime}</td>
+                  <td class="border border-blue-800 text-center">${set.weight}</td>
+                  <td class="border border-blue-800 text-center">${set.rating}</td>
+                </tr>
+              `)
+
+
+            }
         })
 
   } else {
