@@ -21,46 +21,46 @@ firebase.auth().onAuthStateChanged(async function(user) {
     })
 
     // Date Filter
-        // get a reference to the date filter
-        let dateFilter = document.querySelector(`#date-filter`)
-        // add event listener for the post comment button
-        dateFilter.addEventListener(`change`, async function(event){
-            // ignore default
-            event.preventDefault()
-            // get a reference to the input
-            let dateSelected = document.querySelector(`#workout-date`)
-            // get the date
-            let date = dateSelected.value
-            console.log(date)
-            // Build the url for our date filter API
-            let url = `/.netlify/functions/date_filter?userId=${user.uid}&date=${date}`
-            // Get the response
-            let response = await fetch(url)
-            // Ask for the json-formatted data
-            let json = await response.json()
-            console.log(json)
+      // get a reference to the date filter
+      let dateFilter = document.querySelector(`#date-filter`)
+      // add event listener for the post comment button
+      dateFilter.addEventListener(`change`, async function(event){
+          // ignore default
+          event.preventDefault()
+          // get a reference to the input
+          let dateSelected = document.querySelector(`#workout-date`)
+          // get the date
+          let date = dateSelected.value
+          console.log(date)
+          // Build the url for our date filter API
+          let url = `/.netlify/functions/date_filter?userId=${user.uid}&date=${date}`
+          // Get the response
+          let response = await fetch(url)
+          // Ask for the json-formatted data
+          let json = await response.json()
+          console.log(json)
 
-            // Get a reference to the workout chart
-            let workoutChart = document.querySelector(`#workout-chart`)
+          // Get a reference to the workout chart
+          let workoutChart = document.querySelector(`#workout-chart`)
 
-            // Loop through the json data
-            for (let workoutIndex=0; workoutIndex < json.length; workoutIndex++) {
-              // Store each set in memory
-              let set = json[workoutIndex]
+          // Loop through the json data
+          for (let workoutIndex=0; workoutIndex < json.length; workoutIndex++) {
+            // Store each set in memory
+            let set = json[workoutIndex]
 
-              workoutChart.insertAdjacentHTML(`beforeend`, `
-              
-                <tr>
-                  <td class="border border-blue-800 text-center">${set.exerciseName.exercise}</td>
-                  <td class="border border-blue-800 text-center">${set.repsOrTime}</td>
-                  <td class="border border-blue-800 text-center">${set.weight}</td>
-                  <td class="border border-blue-800 text-center">${set.rating}</td>
-                </tr>
-              `)
+            workoutChart.insertAdjacentHTML(`beforeend`, `
+            
+              <tr>
+                <td class="border border-blue-800 text-center">${set.exerciseName.exercise}</td>
+                <td class="border border-blue-800 text-center">${set.repsOrTime}</td>
+                <td class="border border-blue-800 text-center">${set.weight}</td>
+                <td class="border border-blue-800 text-center">${set.rating}</td>
+              </tr>
+            `)
 
 
-            }
-        })
+          }
+      })
 
   } else {
     // Signed out
