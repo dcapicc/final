@@ -33,7 +33,7 @@ exports.handler = async function(event) {
     let activities = activitiesQuery.docs
 
     // Loop through the activities
-    for (let activiitesIndex=0; activiitesIndex < activities.length; activiitesIndex++) {
+    for (let activiitesIndex=0; activiitesIndex < activities.length; activitiesIndex++) {
       // get the id from the document
       let activityId = activities[activiitesIndex].id 
 
