@@ -3,22 +3,18 @@
 
 let firebase = require(`./firebase`)    
 
+exports.handler = async function(event){
 
-// create variable to listen for a click on button
-
-let rowButton = document.querySelector(`#add-row`)
-
-// create function to respond for add row button click
-
-rowButton.addEventListener(`click`, async function(event){
-
-    // create form to take in data
-    
+    // get the querystring parameters and store in memory
+    let exerciseId = event.queryStringParameters.exerciseId
+    let repsOrTime = event.queryStringParameters.repsOrTime
+    let weight = event.queryStringParameters.weight
+    let rating = event.queryStringParameters.rating
+    let workoutId = event.queryStringParameters.workoutId 
 
     // establish a connection firebase in memory
 
     let db = firebase.firestore()
-
 
     // create an empty array for our return value
 
@@ -26,11 +22,12 @@ rowButton.addEventListener(`click`, async function(event){
 
     // create a new set
 
-    db.collection(`activities`).add({
-        rating: rating,
+    await db.collection(`activities`).add({
+        exerciseId: exerciseId,
         repsOrTime: repsOrTime,
         weight: weight,
-        workoutId: workoutId
+        rating: rating,
+        workoutId: workoutId      
     })
 
 
