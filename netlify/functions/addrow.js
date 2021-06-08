@@ -34,4 +34,4 @@ exports.handler = async function(event){
         statusCode: 200,
     }
 
-})
+}

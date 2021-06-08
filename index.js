@@ -97,11 +97,13 @@ firebase.auth().onAuthStateChanged(async function (user) {
 
 
       // Add row
+      
         // get a reference to the "Add Row" button
     let addRowButton = document.querySelector(`#add-row`)
 
     // listen for the clicking of the "Add Row" button
-    addRowButton.addEventListener(`click`, async function(event) {
+    if(addRowButton){
+      addRowButton.addEventListener(`click`, async function(event) {
 
 
       // prevent the default behavior (submitting the form)
@@ -134,16 +136,19 @@ firebase.auth().onAuthStateChanged(async function (user) {
 
 
       // // create the URL for our "create post" lambda function
-      let url = `/.netlify/functions/addrow?exercise=${exercise}&repsOrTime=${repsOrTime}&weight=${weight}&rating=${rating}`
+      let addRowUrl = `/.netlify/functions/addrow?exercise=${exercise}&repsOrTime=${repsOrTime}&weight=${weight}&rating=${rating}`
 
       // // fetch the URL, wait for the response, store the response in memory
-      let response = await fetch(url)
+      let response = await fetch(addRowUrl)
+
+      let json = await response.json()
 
       // // refresh the page
       location.reload()
 
 
-    })
+      })
+    }
 
 
   } else {
