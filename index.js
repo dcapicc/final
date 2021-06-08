@@ -95,7 +95,7 @@ firebase.auth().onAuthStateChanged(async function (user) {
 
     // add event listener for the post comment button
     if (dateFilter) {
-      dateFilter.addEventListener(`change`, async function (event) {
+      dateFilter.addEventListener(`change`, async function(event) {
         // ignore default
         event.preventDefault()
 
@@ -184,7 +184,7 @@ firebase.auth().onAuthStateChanged(async function (user) {
 
       // // create the URL for our "create post" lambda function
       let addRowUrl = `/.netlify/functions/addrow?exerciseName=${exerciseName}&repsOrTime=${repsOrTime}&weight=${weight}&rating=${rating}&userId=${user.uid}&newWorkoutDate=${newWorkoutDate}`
-      console.log(addRowUrl)
+      // console.log(addRowUrl)
 
       // // fetch the URL, wait for the response, store the response in memory
       let addRowResponse = await fetch(addRowUrl)
