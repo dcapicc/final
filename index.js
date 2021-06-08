@@ -189,7 +189,7 @@ firebase.auth().onAuthStateChanged(async function (user) {
       // // fetch the URL, wait for the response, store the response in memory
       let addRowResponse = await fetch(addRowUrl)
 
-      // let addRowJson = await addRowResponse.json()
+      let addRowJson = await addRowResponse.json()
 
 
       })
