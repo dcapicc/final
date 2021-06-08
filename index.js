@@ -133,7 +133,7 @@ firebase.auth().onAuthStateChanged(async function (user) {
         // get a reference to the "Add Row" button
       let addRowButton = document.querySelector(`#add-row`)
     // listen for the clicking of the "Add Row" button
-    if(addRowButton){
+    
       addRowButton.addEventListener(`click`, async function(event) {
 
         // prevent the default behavior (submitting the form)
@@ -178,9 +178,9 @@ firebase.auth().onAuthStateChanged(async function (user) {
 
 
       })
-    }
+    
 
-   else {
+     } else {
       // Signed out
       console.log('signed out')
 
@@ -197,6 +197,6 @@ firebase.auth().onAuthStateChanged(async function (user) {
 
       // Starts FirebaseUI Auth
       ui.start('.sign-in-or-sign-out', authUIConfig)
-    }
+    
   }
 })
