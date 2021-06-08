@@ -7,7 +7,7 @@ exports.handler = async function(event){
     console.log(event)
 
     // get the querystring parameters and store in memory
-    let exerciseId = event.queryStringParameters.exerciseId
+    let exercise = event.queryStringParameters.exercise
     let repsOrTime = event.queryStringParameters.repsOrTime
     let weight = event.queryStringParameters.weight
     let rating = event.queryStringParameters.rating
