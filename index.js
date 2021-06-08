@@ -62,6 +62,45 @@ firebase.auth().onAuthStateChanged(async function(user) {
             }
         })
 
+
+      // Add row
+        // get a reference to the "Add Row" button
+    let addRowButton = document.querySelector(`#add-row`)
+
+    // listen for the clicking of the "Add Row" button
+    addRowButton.addEventListener(`click`, async function(event) {
+      
+      console.log(event)
+      
+      // prevent the default behavior (submitting the form)
+      // event.preventDefault()
+
+      // // get a reference to the input holding the image URL
+      // let imageUrlInput = document.querySelector(`#image-url`)
+
+      // // store the user-inputted image URL in memory
+      // let imageUrl = imageUrlInput.value
+
+      // // create the URL for our "create post" lambda function
+      // let url = `/.netlify/functions/addrow?exerciseId=${user.displayName}&imageUrl=${imageUrl}`
+
+      // // fetch the URL, wait for the response, store the response in memory
+      // let response = await fetch(url)
+
+      // // refresh the page
+      // location.reload()
+
+
+      // let exerciseId = event.queryStringParameters.exerciseId
+      // let repsOrTime = event.queryStringParameters.repsOrTime
+      // let weight = event.queryStringParameters.weight
+      // let rating = event.queryStringParameters.rating
+      // let workoutId = event.queryStringParameters.workoutId 
+
+
+    })
+
+
   } else {
     // Signed out
     console.log('signed out')

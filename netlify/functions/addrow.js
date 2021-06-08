@@ -4,6 +4,7 @@
 let firebase = require(`./firebase`)    
 
 exports.handler = async function(event){
+    console.log(event)
 
     // get the querystring parameters and store in memory
     let exerciseId = event.queryStringParameters.exerciseId
@@ -15,10 +16,6 @@ exports.handler = async function(event){
     // establish a connection firebase in memory
 
     let db = firebase.firestore()
-
-    // create an empty array for our return value
-
-    let returnValue = []
 
     // create a new set
 
@@ -35,7 +32,6 @@ exports.handler = async function(event){
     // return value of our lambda
     return {
         statusCode: 200,
-        body: JSON.stringify(returnValue)
     }
 
 })
