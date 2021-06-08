@@ -7,11 +7,12 @@ exports.handler = async function(event) {
     console.log(event)
 
     // get the querystring parameters and store in memory
-    let exercise = event.queryStringParameters.exercise
+    let exerciseName = event.queryStringParameters.exerciseName
     let repsOrTime = event.queryStringParameters.repsOrTime
     let weight = event.queryStringParameters.weight
     let rating = event.queryStringParameters.rating
-    let workoutId = event.queryStringParameters.workoutId 
+    let userId = event.queryStringParameters.userId
+    let date = event.queryStringParameters.newWorkoutDate
 
     // establish a connection firebase in memory
 
@@ -20,11 +21,12 @@ exports.handler = async function(event) {
     // create a new set
 
     await db.collection(`activities`).add({
-        exerciseId: exerciseId,
+        exerciseName: exerciseName,
         repsOrTime: repsOrTime,
         weight: weight,
         rating: rating,
-        workoutId: workoutId      
+        userId: userId,
+        date: date  
     })
 
 
