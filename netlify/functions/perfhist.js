@@ -17,7 +17,7 @@ exports.handler = async function(event) {
 
   let exercises = exerciseQuery.docs
   // perform a query against the firestore for activities with that exercise
-  let activitiesQuery =  await db.collection(`activities`).where(`exerciseId`, `==`, exerciseName).get()
+  let activitiesQuery =  await db.collection(`activities`).where(`exerciseId`, `==`, exercises).get()
   
   let activities = activitiesQuery.docs
 

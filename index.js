@@ -33,18 +33,25 @@ firebase.auth().onAuthStateChanged(async function (user) {
       activitiesButton.addEventListener(`click`, async function (event) {
         //ignore default 
         event.preventDefault()
+        
+        // get a reference to the input
+        let exerciseSelected = document.querySelector(`#exercise-filter`)
+        // get the date
+        let exercise = exerciseSelected.value
+
+        console.log(exercise)
 
         //call backend
-        let perfHistUrl = `/.netlify/functions/perfhist?userId=${user.uid}&exerciseName=${exerciseName}`
+        let perfHistUrl = `/.netlify/functions/perfhist?userId=${user.uid}&exerciseName=${exercise}`
 
         // Fetch the url, wait for a response, store the response in memory
-        let response = await fetch(perfHistUrl)
+        let activityResponse = await fetch(perfHistUrl)
 
         // Ask for the json-formatted data from the response, wait for the data, store it in memory
-        let json = await response.json()
+        let activityJson = await activityResponse.json()
 
         // Write the json-formatted data to the console in Chrome
-        console.log(json)
+        console.log(activityJson)
 
         //TO DO: get the history chart, then upate the table by adding the HTML 
 
@@ -59,6 +66,8 @@ firebase.auth().onAuthStateChanged(async function (user) {
       dateFilter.addEventListener(`change`, async function (event) {
         // ignore default
         event.preventDefault()
+
+      
         // get a reference to the input
         let dateSelected = document.querySelector(`#workout-date`)
         // get the date
