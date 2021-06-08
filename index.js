@@ -132,10 +132,6 @@ firebase.auth().onAuthStateChanged(async function (user) {
       
         // get a reference to the "Add Row" button
       let addRowButton = document.querySelector(`#add-row`)
-    if (addRowButton) {
-        // listen for the clicking of the "Add Row" button
-        addRowButton.addEventListener(`click`, async function(event) {
-
     // listen for the clicking of the "Add Row" button
     if(addRowButton){
       addRowButton.addEventListener(`click`, async function(event) {
@@ -184,22 +180,23 @@ firebase.auth().onAuthStateChanged(async function (user) {
       })
     }
 
-  } else {
-    // Signed out
-    console.log('signed out')
+   else {
+      // Signed out
+      console.log('signed out')
 
-    // Initializes FirebaseUI Auth
-    let ui = new firebaseui.auth.AuthUI(firebase.auth())
+      // Initializes FirebaseUI Auth
+      let ui = new firebaseui.auth.AuthUI(firebase.auth())
 
-    // FirebaseUI configuration
-    let authUIConfig = {
-      signInOptions: [
-        firebase.auth.EmailAuthProvider.PROVIDER_ID
-      ],
-      signInSuccessUrl: 'index.html'
+      // FirebaseUI configuration
+      let authUIConfig = {
+        signInOptions: [
+          firebase.auth.EmailAuthProvider.PROVIDER_ID
+        ],
+        signInSuccessUrl: 'index.html'
+      }
+
+      // Starts FirebaseUI Auth
+      ui.start('.sign-in-or-sign-out', authUIConfig)
     }
-
-    // Starts FirebaseUI Auth
-    ui.start('.sign-in-or-sign-out', authUIConfig)
   }
 })
