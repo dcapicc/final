@@ -12,72 +12,40 @@ exports.handler = async function(event) {
   let userId = event.queryStringParameters.userId
   let exerciseName = event.queryStringParameters.exerciseName
 
-
-  //TO DO:
   // perform a query against the firestore for exercise with that name
-  let exerciseQuery = await db.collection(`exercises`).where(`exercise`, `==`, exerciseName).get()
+  let exerciseQuery = await db.collection(`exercises`).doc(exerciseName).get()
 
+  let exercises = exerciseQuery.docs
   // perform a query against the firestore for activities with that exercise
+  let activitiesQuery =  await db.collection(`activities`).where(`exerciseId`, `==`, exerciseName).get()
   
+  let activities = activitiesQuery.docs
 
-  // perform a query against the firestore for all the workouts
-  let workoutsQuery = await db.collection(`workouts`).where(`date`, `==`, date).get()
+  // Loop through the activities
+  for (let activitiesIndex=0; activitiesIndex < activities.length; activitiesIndex++) {
+    // get the id from the document
+    let activityId = activities[activitiesIndex].id 
 
-  // retreive the documents from the query
-  let workouts = workoutsQuery.docs
+    // Get the data from the document
+    let activityData = activities[activitiesIndex].data()
 
-  // loop through the workouts
-  for (let workoutIndex=0; workoutIndex < workouts.length; workoutIndex++) {
-    // get the id from the 
-    let workoutId = workouts[workoutIndex].id
+    let exerciseId = activityData.exerciseId
+    console.log(exerciseId)
 
-    // get the data from the document
-    let workoutData = workouts[workoutIndex].data()
-
-    // perform a query against the firestore for all activiites with this workout id
-    let activitiesQuery = await db.collection(`activities`).where(`workoutId`, `==`, workoutId).get()
-
-    // retrieve the documents from the query
-    let activities = activitiesQuery.docs
-
-    // Loop through the activities
-    for (let activitiesIndex=0; activitiesIndex < activities.length; activitiesIndex++) {
-      // get the id from the document
-      let activityId = activities[activiitesIndex].id 
-
-      // Get the data from the document
-      let activityData = activities[activiitesIndex].data()
-
-      let exerciseId = activityData.exerciseId
-      console.log(exerciseId)
-
-      // performa a query against the firestore for the name 
-      let exerciseRef = await db.collection(`exercises`).doc(exerciseId).get()
-
-      let exercise = exerciseRef.data()
-      
-      // Create an object to be added to the return value
-      let activityObject = {
-        workoutId: workoutId,
-        workoutDate: workoutData.date,
-        activityId: activityId,
-        exerciseName: exercise,
-        repsOrTime: activityData.repsOrTime,
-        weight: activityData.weight,
-        rating: activityData.rating
-      }
-
-      // add the object to the return value
-      returnValue.push(activityObject)
-
+    // Create an object to be added to the return value
+    let activityObject = {
+      workoutId: workoutId,
+      workoutDate: workoutData.date,
+      activityId: activityId,
+      repsOrTime: activityData.repsOrTime,
+      weight: activityData.weight,
+      rating: activityData.rating
     }
 
+    // add the object to the return value
+    returnValue.push(activityObject)
+
   }
-
-      
-
-
-
 
   return {
     statusCode: 200,

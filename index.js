@@ -24,12 +24,12 @@ firebase.auth().onAuthStateChanged(async function (user) {
     //get a reference to the user-entered exercise 
     let exerciseInput = document.querySelector(`#exercise-filter`)
 
-    let exerciseType = exerciseInput.value
-    
+    //let exerciseType = exerciseInput.value
+
     //get a reference to the get act button
     let activitiesButton = document.querySelector(`.get-activities`)
     // add event listener to listen on click
-    if (activitiesButton) {
+    
       activitiesButton.addEventListener(`click`, async function (event) {
         //ignore default 
         event.preventDefault()
@@ -49,13 +49,13 @@ firebase.auth().onAuthStateChanged(async function (user) {
         //TO DO: get the history chart, then upate the table by adding the HTML 
 
       })
-    }
+    
 
     // Date Filter
     // get a reference to the date filter
     let dateFilter = document.querySelector(`#date-filter`)
     // add event listener for the post comment button
-    if (dateFilter) {
+   
       dateFilter.addEventListener(`change`, async function (event) {
         // ignore default
         event.preventDefault()
@@ -93,7 +93,7 @@ firebase.auth().onAuthStateChanged(async function (user) {
 
         }
       })
-    }
+    
 
   } else {
     // Signed out

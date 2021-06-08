@@ -33,12 +33,12 @@ exports.handler = async function(event) {
     let activities = activitiesQuery.docs
 
     // Loop through the activities
-    for (let activiitesIndex=0; activiitesIndex < activities.length; activitiesIndex++) {
+    for (let activitiesIndex=0; activitiesIndex < activities.length; activitiesIndex++) {
       // get the id from the document
-      let activityId = activities[activiitesIndex].id 
+      let activityId = activities[activitiesIndex].id 
 
       // Get the data from the document
-      let activityData = activities[activiitesIndex].data()
+      let activityData = activities[activitiesIndex].data()
 
       let exerciseId = activityData.exerciseId
       console.log(exerciseId)
