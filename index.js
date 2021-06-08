@@ -95,6 +95,57 @@ firebase.auth().onAuthStateChanged(async function (user) {
       })
     
 
+
+      // Add row
+        // get a reference to the "Add Row" button
+    let addRowButton = document.querySelector(`#add-row`)
+
+    // listen for the clicking of the "Add Row" button
+    addRowButton.addEventListener(`click`, async function(event) {
+
+
+      // prevent the default behavior (submitting the form)
+      event.preventDefault()
+
+      // // get a reference to the exercise
+      let exerciseInput = document.querySelector(`#exercise`)
+
+      // store the user-inputted exercise in memory
+      let exercise = exerciseInput.value
+
+      // get reference to reps/time
+
+      let repsOrTimeInput = document.querySelector(`#repsOrTime`)
+
+      // store the user-inputted reps/time in memory
+      let repsOrTime = repsOrTimeInput.value
+
+      // get reference to the weight
+      let weightInput = document.querySelector(`#weight`)
+
+      // store the user-inputted image URL in memory
+      let weight = weightInput.value
+
+      // get reference to the rating
+      let ratingInput = document.querySelector(`#rating`)
+
+      // store the user-inputted image URL in memory
+      let rating = ratingInput.value
+
+
+      // // create the URL for our "create post" lambda function
+      let url = `/.netlify/functions/addrow?exercise=${exercise}&repsOrTime=${repsOrTime}&weight=${weight}&rating=${rating}`
+
+      // // fetch the URL, wait for the response, store the response in memory
+      let response = await fetch(url)
+
+      // // refresh the page
+      location.reload()
+
+
+    })
+
+
   } else {
     // Signed out
     console.log('signed out')
