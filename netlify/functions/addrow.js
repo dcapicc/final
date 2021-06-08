@@ -3,7 +3,7 @@
 
 let firebase = require(`./firebase`)    
 
-exports.handler = async function(event){
+exports.handler = async function(event) {
     console.log(event)
 
     // get the querystring parameters and store in memory

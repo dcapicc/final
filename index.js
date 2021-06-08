@@ -21,11 +21,6 @@ firebase.auth().onAuthStateChanged(async function (user) {
     })
 
     // Get Activities button
-    //get a reference to the user-entered exercise 
-    let exerciseInput = document.querySelector(`#exercise-filter`)
-
-    let exerciseType = exerciseInput.value
-    
     //get a reference to the get act button
     let activitiesButton = document.querySelector(`.get-activities`)
     // add event listener to listen on click
@@ -33,20 +28,54 @@ firebase.auth().onAuthStateChanged(async function (user) {
       activitiesButton.addEventListener(`click`, async function (event) {
         //ignore default 
         event.preventDefault()
+        
+        // get a reference to the input
+        let exerciseSelected = document.querySelector(`#exercise-filter`)
+        // get the date
+        let exercise = exerciseSelected.value
+
+        console.log(exercise)
 
         //call backend
-        let perfHistUrl = `/.netlify/functions/perfhist?userId=${user.uid}&exerciseName=${exerciseName}`
+        let perfHistUrl = `/.netlify/functions/perfhist?userId=${user.uid}&exerciseName=${exercise}`
 
         // Fetch the url, wait for a response, store the response in memory
-        let response = await fetch(perfHistUrl)
+        let activityResponse = await fetch(perfHistUrl)
 
         // Ask for the json-formatted data from the response, wait for the data, store it in memory
-        let json = await response.json()
+        let activityJson = await activityResponse.json()
 
         // Write the json-formatted data to the console in Chrome
-        console.log(json)
+        console.log(activityJson)
 
         //TO DO: get the history chart, then upate the table by adding the HTML 
+
+      })
+    }
+
+    // New Workout Button
+    // get a reference to the new workout button
+    let newWorkoutButton = document.querySelector(`#start-workout`)
+
+    if (newWorkoutButton) {
+      // Add event listener for the new workout button
+      newWorkoutButton.addEventListener(`click`, async function(event) {
+
+        // ingore default behavior
+        event.preventDefault()
+
+        // get a reference to the input
+        let dateSelected = document.querySelector(`#workout-date`)
+        // get the date
+        let date = dateSelected.value
+        // get a new url
+        let newWorkoutUrl = `/.netlify/functions/new_workout?date=${date}`
+        
+        // Get the response
+        let newWorkoutResponse = await fetch(newWorkoutUrl)
+        // Ask for the json-formatted data
+        let newWorkoutJson = await newWorkoutResponse.json()
+        console.log(`Workout created for ${date}`)
 
       })
     }
@@ -59,6 +88,8 @@ firebase.auth().onAuthStateChanged(async function (user) {
       dateFilter.addEventListener(`change`, async function (event) {
         // ignore default
         event.preventDefault()
+
+      
         // get a reference to the input
         let dateSelected = document.querySelector(`#workout-date`)
         // get the date
@@ -75,13 +106,14 @@ firebase.auth().onAuthStateChanged(async function (user) {
         // Get a reference to the workout chart
         let workoutChart = document.querySelector(`#workout-chart`)
 
-        // Loop through the json data
-        for (let workoutIndex = 0; workoutIndex < json.length; workoutIndex++) {
-          // Store each set in memory
-          let set = json[workoutIndex]
+          // Loop through the json data
+          for (let workoutIndex = 0; workoutIndex < json.length; workoutIndex++) {
+            // Store each set in memory
+            let set = json[workoutIndex]
 
-          workoutChart.insertAdjacentHTML(`beforeend`, `
             
+            workoutChart.insertAdjacentHTML(`beforeend`, `
+              
               <tr>
                 <td class="border border-blue-800 text-center">${set.exerciseName.exercise}</td>
                 <td class="border border-blue-800 text-center">${set.repsOrTime}</td>
@@ -91,48 +123,50 @@ firebase.auth().onAuthStateChanged(async function (user) {
             `)
 
 
-        }
+          }
       })
+    
     }
-
 
       // Add row
       
         // get a reference to the "Add Row" button
-    let addRowButton = document.querySelector(`#add-row`)
+      let addRowButton = document.querySelector(`#add-row`)
+    if (addRowButton) {
+        // listen for the clicking of the "Add Row" button
+        addRowButton.addEventListener(`click`, async function(event) {
 
     // listen for the clicking of the "Add Row" button
     if(addRowButton){
       addRowButton.addEventListener(`click`, async function(event) {
 
+        // prevent the default behavior (submitting the form)
+        event.preventDefault()
 
-      // prevent the default behavior (submitting the form)
-      event.preventDefault()
+        // // get a reference to the exercise
+        let exerciseInput = document.querySelector(`#exercise`)
 
-      // // get a reference to the exercise
-      let exerciseInput = document.querySelector(`#exercise`)
+        // store the user-inputted exercise in memory
+        let exercise = exerciseInput.value
 
-      // store the user-inputted exercise in memory
-      let exercise = exerciseInput.value
+        // get reference to reps/time
 
-      // get reference to reps/time
+        let repsOrTimeInput = document.querySelector(`#repsOrTime`)
 
-      let repsOrTimeInput = document.querySelector(`#repsOrTime`)
+        // store the user-inputted reps/time in memory
+        let repsOrTime = repsOrTimeInput.value
 
-      // store the user-inputted reps/time in memory
-      let repsOrTime = repsOrTimeInput.value
+        // get reference to the weight
+        let weightInput = document.querySelector(`#weight`)
 
-      // get reference to the weight
-      let weightInput = document.querySelector(`#weight`)
+        // store the user-inputted image URL in memory
+        let weight = weightInput.value
 
-      // store the user-inputted image URL in memory
-      let weight = weightInput.value
+        // get reference to the rating
+        let ratingInput = document.querySelector(`#rating`)
 
-      // get reference to the rating
-      let ratingInput = document.querySelector(`#rating`)
-
-      // store the user-inputted image URL in memory
-      let rating = ratingInput.value
+        // store the user-inputted image URL in memory
+        let rating = ratingInput.value
 
 
       // // create the URL for our "create post" lambda function
@@ -143,13 +177,12 @@ firebase.auth().onAuthStateChanged(async function (user) {
 
       let json = await response.json()
 
-      // // refresh the page
-      location.reload()
+        // // refresh the page
+        location.reload()
 
 
       })
     }
-
 
   } else {
     // Signed out
