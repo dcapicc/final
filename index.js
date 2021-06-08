@@ -1,7 +1,7 @@
-firebase.auth().onAuthStateChanged(async function(user) {
+firebase.auth().onAuthStateChanged(async function (user) {
   if (user) {
     // Signed in
-    console.log('signed in')
+    console.log(`signed in as ${user.uid}`)
 
     // Build the markup for the sign-out button and set the HTML in the header
     document.querySelector(`.sign-in-or-sign-out`).innerHTML = `
@@ -12,7 +12,7 @@ firebase.auth().onAuthStateChanged(async function(user) {
     let signOutButton = document.querySelector(`.sign-out`)
 
     // handle the sign out button click
-    signOutButton.addEventListener(`click`, function(event) {
+    signOutButton.addEventListener(`click`, function (event) {
       // sign out of firebase authentication
       firebase.auth().signOut()
 
@@ -20,35 +20,62 @@ firebase.auth().onAuthStateChanged(async function(user) {
       document.location.href = `index.html`
     })
 
+    // Get Activities button
+    //get a reference to the get act button
+    let activitiesButton = document.querySelector(`.get-activities`)
+    // add event listener to listen on click
+    if (activitiesButton) {
+      activitiesButton.addEventListener(`click`, async function (event) {
+        //ignore default 
+        event.preventDefault()
+
+        //call backend
+        let perfHistUrl = `/.netlify/functions/perfhist?userId=${user.uid}&exerciseName=${exerciseName}`
+
+        // Fetch the url, wait for a response, store the response in memory
+        let response = await fetch(perfHistUrl)
+
+        // Ask for the json-formatted data from the response, wait for the data, store it in memory
+        let json = await response.json()
+
+        // Write the json-formatted data to the console in Chrome
+        console.log(json)
+
+        //TO DO: get the history chart, then upate the table by adding the HTML 
+
+      })
+    }
+
     // Date Filter
-      // get a reference to the date filter
-      let dateFilter = document.querySelector(`#date-filter`)
-      // add event listener for the post comment button
-      dateFilter.addEventListener(`change`, async function(event){
-          // ignore default
-          event.preventDefault()
-          // get a reference to the input
-          let dateSelected = document.querySelector(`#workout-date`)
-          // get the date
-          let date = dateSelected.value
-          console.log(date)
-          // Build the url for our date filter API
-          let url = `/.netlify/functions/date_filter?userId=${user.uid}&date=${date}`
-          // Get the response
-          let response = await fetch(url)
-          // Ask for the json-formatted data
-          let json = await response.json()
-          console.log(json)
+    // get a reference to the date filter
+    let dateFilter = document.querySelector(`#date-filter`)
+    // add event listener for the post comment button
+    if (dateFilter) {
+      dateFilter.addEventListener(`change`, async function (event) {
+        // ignore default
+        event.preventDefault()
+        // get a reference to the input
+        let dateSelected = document.querySelector(`#workout-date`)
+        // get the date
+        let date = dateSelected.value
+        console.log(date)
+        // Build the url for our date filter API
+        let url = `/.netlify/functions/date_filter?userId=${user.uid}&date=${date}`
+        // Get the response
+        let response = await fetch(url)
+        // Ask for the json-formatted data
+        let json = await response.json()
+        console.log(json)
 
-          // Get a reference to the workout chart
-          let workoutChart = document.querySelector(`#workout-chart`)
+        // Get a reference to the workout chart
+        let workoutChart = document.querySelector(`#workout-chart`)
 
-          // Loop through the json data
-          for (let workoutIndex=0; workoutIndex < json.length; workoutIndex++) {
-            // Store each set in memory
-            let set = json[workoutIndex]
+        // Loop through the json data
+        for (let workoutIndex = 0; workoutIndex < json.length; workoutIndex++) {
+          // Store each set in memory
+          let set = json[workoutIndex]
 
-            workoutChart.insertAdjacentHTML(`beforeend`, `
+          workoutChart.insertAdjacentHTML(`beforeend`, `
             
               <tr>
                 <td class="border border-blue-800 text-center">${set.exerciseName.exercise}</td>
@@ -59,8 +86,9 @@ firebase.auth().onAuthStateChanged(async function(user) {
             `)
 
 
-          }
+        }
       })
+    }
 
   } else {
     // Signed out
