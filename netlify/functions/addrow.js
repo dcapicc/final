@@ -23,9 +23,8 @@ exports.handler = async function(event) {
 
     // retreive the documents from the query
     let exercise = exerciseQuery.docs
-    console.log(exercise)
 
-    // create a new set
+    // create a new set in the activities database
 
     await db.collection(`activities`).add({
         exerciseName: exerciseName,
