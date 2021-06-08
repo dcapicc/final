@@ -21,6 +21,11 @@ firebase.auth().onAuthStateChanged(async function (user) {
     })
 
     // Get Activities button
+    //get a reference to the user-entered exercise 
+    let exerciseInput = document.querySelector(`#exercise-filter`)
+
+    let exerciseType = exerciseInput.value
+    
     //get a reference to the get act button
     let activitiesButton = document.querySelector(`.get-activities`)
     // add event listener to listen on click

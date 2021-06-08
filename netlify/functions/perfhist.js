@@ -37,13 +37,11 @@ exports.handler = async function(event) {
     // perform a query against the firestore for all activiites with this workout id
     let activitiesQuery = await db.collection(`activities`).where(`workoutId`, `==`, workoutId).get()
 
-    // .where(`workoutId`, `==`, date).where(`userId`, `==`, userId)
-
     // retrieve the documents from the query
     let activities = activitiesQuery.docs
 
     // Loop through the activities
-    for (let activiitesIndex=0; activiitesIndex < activities.length; activitiesIndex++) {
+    for (let activitiesIndex=0; activitiesIndex < activities.length; activitiesIndex++) {
       // get the id from the document
       let activityId = activities[activiitesIndex].id 
 

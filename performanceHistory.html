@@ -26,19 +26,22 @@
   </div>
 
   <!-- Select Exercise -->
-  <div id="exercise-filter" class="grid grid-cols-1 divide-y mt-8 text-center">
+  <div  class="grid grid-cols-1 divide-y mt-8 text-center">
     <label class="" for="exercise-filter">Choose an Exercise:</label>
+    <form>
+      <input type="text" name="exercise" id="exercise-filter" placeholder="Exercise Type" class="border border-gray-400 rounded p-2 mr-1">
+    </form>
 
-    <select name="exercises" id="exercise-select" class="mx-auto w-35 border border-blue-800">
+    <!-- <select name="exercises" id="exercise-select" class="mx-auto w-35 border border-blue-800">
       <option value="">--Please choose an option--</option>
       <option value="Bench Press">Bench Press</option>
       <option value="Dumbbell Rows">Dumbbell Rows</option>
       
-    </select>
-    <button class="get-activities border bg-green-500 text-white rounded px-4 py-2">SUBMIT</button>
+    </select> -->
+    <button class="get-activities border bg-green-500 text-white rounded p-2 mr-1">SUBMIT</button>
   </div>
 
-  <!-- Workout Chart -->
+  <!-- Perf History Chart -->
   <table class="mx-auto mt-8 table-auto border-collapse border border-blue-800" id="history-chart">
     <tr>
       <th class="border border-blue-800 text-center px-4">Date</th>
