@@ -19,16 +19,17 @@ exports.handler = async function(event) {
     let db = firebase.firestore()
 
     // perform a query against the firestore for the exercise that matches the exercise name
-    let exerciseQuery = await db.collection(`exercises`).where(`exercise`, `==`, exerciseName).get()
+    // let exerciseQuery = await db.collection(`exercises`).where(`exercise`, `==`, exerciseName).get()
 
-    // retreive the documents from the query
-    let exercise = exerciseQuery.docs
+    // // retreive the documents from the query
+    // let exercise = exerciseQuery.docs
+    // let exerciseId = exercise.id 
 
     // create a new set in the activities database
 
     await db.collection(`activities`).add({
         exerciseName: exerciseName,
-        exerciseId: exercise.Id,
+        // exerciseId: exerciseId,
         repsOrTime: repsOrTime,
         weight: weight,
         rating: rating,
