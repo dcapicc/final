@@ -38,7 +38,7 @@ exports.handler = async function(event) {
       // Get a reference to the workout ID
       let workoutId = activityData.workoutId
 
-      // performa a query against the firestore for the name 
+      // perform a a query against the firestore for the name 
       let dateRef = await db.collection(`workouts`).doc(workoutId).get()
 
       let date = dateRef.data()
