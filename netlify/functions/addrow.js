@@ -14,34 +14,39 @@ exports.handler = async function(event) {
     let userId = event.queryStringParameters.userId
     let date = event.queryStringParameters.newWorkoutDate
 
+    console.log(exerciseName)
     // establish a connection firebase in memory
 
     let db = firebase.firestore()
 
     // perform a query against the firestore for the exercise that matches the exercise name
-    // let exerciseQuery = await db.collection(`exercises`).where(`exercise`, `==`, exerciseName).get()
+    let exerciseQuery = await db.collection(`exercises`).where(`exercise`, `==`, exerciseName).get()
 
-    // // retreive the documents from the query
-    // let exercise = exerciseQuery.docs
-    // let exerciseId = exercise.id 
+    // retreive the documents from the query
+    let exercise = exerciseQuery.docs[0]
+    let exerciseId = exercise.id 
+    console.log(exerciseId)
 
     // create a new set in the activities database
 
-    await db.collection(`activities`).add({
+    let returnValue = {
         exerciseName: exerciseName,
-        // exerciseId: exerciseId,
+        exerciseId: exerciseId,
         repsOrTime: repsOrTime,
         weight: weight,
         rating: rating,
         userId: userId,
-        date: date  
-    })
+        date: date 
+    }
+
+    await db.collection(`activities`).add(returnValue)
 
 
 
     // return value of our lambda
     return {
         statusCode: 200,
+        body: JSON.stringify(returnValue)
     }
 
 }
