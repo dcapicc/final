@@ -7,7 +7,7 @@ exports.handler = async function(event) {
   // get connection to firebase in memory
   let db =firebase.firestore()
 
-  //TO-DO:
+
   //accept an exercise type in the querystringparameter (type, whatever)
   let userId = event.queryStringParameters.userId
   let exerciseName = event.queryStringParameters.exerciseName
@@ -39,9 +39,11 @@ exports.handler = async function(event) {
       let workoutId = activityData.workoutId
 
       // perform a a query against the firestore for the name 
-      let dateRef = await db.collection(`workouts`).doc(workoutId).get()
+      // let dateRef = await db.collection(`workouts`).doc(workoutId).get()
 
-      let date = dateRef.data()
+      let date = activityData.date
+      console.log(date)
+      // console.log(date[0])
 
       // Create an object to be added to the return value
       let activityObject = {

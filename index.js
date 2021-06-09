@@ -43,28 +43,33 @@ firebase.auth().onAuthStateChanged(async function (user) {
         let activityResponse = await fetch(perfHistUrl)
 
         // Ask for the json-formatted data from the response, wait for the data, store it in memory
-        let activityJson = await activityResponse.json()
+        let activityList = await activityResponse.json()
 
         // Write the json-formatted data to the console in Chrome
-        console.log(activityJson)
+        console.log(activityList)
 
-        //TO DO: get the history chart, then upate the table by adding the HTML
-        let repsOrTimeResult = activityJson.repsOrTime
-        let weightResult = activityJson.weight
-        let ratingResult = activityJson.rating
+        //get the history chart, then upate the table by adding the HTML
         
         let perfHistElement = document.querySelector(`#history-chart`)
+        
+        for (let i=0; i < activityList.length; i++) {
 
-        //replace element's contents 
-        perfHistElement.insertAdjacentHTML(`beforeend`, `
-        <tr>
-          <td class="border border-blue-800 text-center">5/27/2021</td>
-          <td class="border border-blue-800 text-center">${repsOrTimeResult}</td>
-          <td class="border border-blue-800 text-center">${weightResult}</td>
-          <td class="border border-blue-800 text-center">${ratingResult}</td>
-        </tr>
-      </table>
-        `)
+          let repsOrTimeResult = activityList[i].repsOrTime
+          let workoutDateResult = activityList[i].workoutDate
+          let weightResult = activityList[i].weight
+          let ratingResult = activityList[i].rating
+          //TO DO: ADD THE REST OF THE VARIABLES
+          
+          //replace element's contents 
+          perfHistElement.insertAdjacentHTML(`beforeend`, `
+          <tr>
+            <td class="border border-blue-800 text-center">${workoutDateResult}</td>
+            <td class="border border-blue-800 text-center">${repsOrTimeResult}</td>
+            <td class="border border-blue-800 text-center">${weightResult}</td>
+            <td class="border border-blue-800 text-center">${ratingResult}</td>
+          </tr>
+          `)
+        }
        
         
 
