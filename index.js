@@ -48,7 +48,25 @@ firebase.auth().onAuthStateChanged(async function (user) {
         // Write the json-formatted data to the console in Chrome
         console.log(activityJson)
 
-        //TO DO: get the history chart, then upate the table by adding the HTML 
+        //TO DO: get the history chart, then upate the table by adding the HTML
+        let repsOrTimeResult = activityJson.repsOrTime
+        let weightResult = activityJson.weight
+        let ratingResult = activityJson.rating
+        
+        let perfHistElement = document.querySelector(`#history-chart`)
+
+        //replace element's contents 
+        perfHistElement.insertAdjacentHTML(`beforeend`, `
+        <tr>
+          <td class="border border-blue-800 text-center">5/27/2021</td>
+          <td class="border border-blue-800 text-center">${repsOrTimeResult}</td>
+          <td class="border border-blue-800 text-center">${weightResult}</td>
+          <td class="border border-blue-800 text-center">${ratingResult}</td>
+        </tr>
+      </table>
+        `)
+       
+        
 
       })
     }
