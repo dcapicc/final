@@ -53,9 +53,13 @@ firebase.auth().onAuthStateChanged(async function (user) {
       })
     }
 
-    // New Workout Button
+    // NEW WORKOUT BUTTON
     // get a reference to the new workout button
     let newWorkoutButton = document.querySelector(`#start-workout`)
+
+    // get a reference to the date of the new workout to pass along to "add row" function
+
+    let newWorkoutDate
 
     if (newWorkoutButton) {
       // Add event listener for the new workout button
@@ -68,6 +72,11 @@ firebase.auth().onAuthStateChanged(async function (user) {
         let dateSelected = document.querySelector(`#workout-date`)
         // get the date
         let date = dateSelected.value
+
+        // store the date to pass along to the add row function
+
+       newWorkoutDate = date
+
         // get a new url
         let newWorkoutUrl = `/.netlify/functions/new_workout?date=${date}`
         
@@ -80,12 +89,13 @@ firebase.auth().onAuthStateChanged(async function (user) {
       })
     }
 
-    // Date Filter
+    // DATE FILTER
     // get a reference to the date filter
     let dateFilter = document.querySelector(`#date-filter`)
+
     // add event listener for the post comment button
     if (dateFilter) {
-      dateFilter.addEventListener(`change`, async function (event) {
+      dateFilter.addEventListener(`change`, async function(event) {
         // ignore default
         event.preventDefault()
 
@@ -94,7 +104,7 @@ firebase.auth().onAuthStateChanged(async function (user) {
         let dateSelected = document.querySelector(`#workout-date`)
         // get the date
         let date = dateSelected.value
-        console.log(date)
+        // console.log(date)
         // Build the url for our date filter API
         let url = `/.netlify/functions/date_filter?userId=${user.uid}&date=${date}`
         // Get the response
@@ -128,22 +138,25 @@ firebase.auth().onAuthStateChanged(async function (user) {
     
     }
 
-      // Add row
+    //  // ADD ROW/SET
       
-        // get a reference to the "Add Row" button
-      let addRowButton = document.querySelector(`#add-row`)
+    // get a reference to the "Add Row" button
+    let addRowButton = document.querySelector(`#add-row`)
     // listen for the clicking of the "Add Row" button
+    
     if(addRowButton){
       addRowButton.addEventListener(`click`, async function(event) {
 
         // prevent the default behavior (submitting the form)
         event.preventDefault()
+        console.log(event)
 
         // // get a reference to the exercise
         let exerciseInput = document.querySelector(`#exercise`)
 
         // store the user-inputted exercise in memory
-        let exercise = exerciseInput.value
+        let exerciseName = exerciseInput.value
+        // console.log (exerciseName)
 
         // get reference to reps/time
 
@@ -151,36 +164,38 @@ firebase.auth().onAuthStateChanged(async function (user) {
 
         // store the user-inputted reps/time in memory
         let repsOrTime = repsOrTimeInput.value
+        // console.log(repsOrTime)
 
         // get reference to the weight
         let weightInput = document.querySelector(`#weight`)
 
         // store the user-inputted image URL in memory
         let weight = weightInput.value
+        // console.log(weight)
 
         // get reference to the rating
         let ratingInput = document.querySelector(`#rating`)
 
         // store the user-inputted image URL in memory
         let rating = ratingInput.value
-
+        // console.log(rating)
+        // console.log(user.uid)
+        // console.log(newWorkoutDate)
 
       // // create the URL for our "create post" lambda function
-      let addRowUrl = `/.netlify/functions/addrow?exercise=${exercise}&repsOrTime=${repsOrTime}&weight=${weight}&rating=${rating}`
+      let addRowUrl = `/.netlify/functions/addrow?exerciseName=${exerciseName}&repsOrTime=${repsOrTime}&weight=${weight}&rating=${rating}&userId=${user.uid}&newWorkoutDate=${newWorkoutDate}`
+      // console.log(addRowUrl)
 
       // // fetch the URL, wait for the response, store the response in memory
-      let response = await fetch(addRowUrl)
+      let addRowResponse = await fetch(addRowUrl)
 
-      let json = await response.json()
-
-        // // refresh the page
-        location.reload()
+      let addRowJson = await addRowResponse.json()
 
 
       })
     }
 
-   else {
+     } else {
       // Signed out
       console.log('signed out')
 
@@ -197,6 +212,6 @@ firebase.auth().onAuthStateChanged(async function (user) {
 
       // Starts FirebaseUI Auth
       ui.start('.sign-in-or-sign-out', authUIConfig)
-    }
+    
   }
 })

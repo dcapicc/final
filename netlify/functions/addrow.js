@@ -7,24 +7,34 @@ exports.handler = async function(event) {
     console.log(event)
 
     // get the querystring parameters and store in memory
-    let exercise = event.queryStringParameters.exercise
+    let exerciseName = event.queryStringParameters.exerciseName
     let repsOrTime = event.queryStringParameters.repsOrTime
     let weight = event.queryStringParameters.weight
     let rating = event.queryStringParameters.rating
-    let workoutId = event.queryStringParameters.workoutId 
+    let userId = event.queryStringParameters.userId
+    let date = event.queryStringParameters.newWorkoutDate
 
     // establish a connection firebase in memory
 
     let db = firebase.firestore()
 
-    // create a new set
+    // perform a query against the firestore for the exercise that matches the exercise name
+    // let exerciseQuery = await db.collection(`exercises`).where(`exercise`, `==`, exerciseName).get()
+
+    // // retreive the documents from the query
+    // let exercise = exerciseQuery.docs
+    // let exerciseId = exercise.id 
+
+    // create a new set in the activities database
 
     await db.collection(`activities`).add({
-        exerciseId: exerciseId,
+        exerciseName: exerciseName,
+        // exerciseId: exerciseId,
         repsOrTime: repsOrTime,
         weight: weight,
         rating: rating,
-        workoutId: workoutId      
+        userId: userId,
+        date: date  
     })
 
 
