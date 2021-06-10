@@ -96,19 +96,21 @@ firebase.auth().onAuthStateChanged(async function (user) {
         // get the date
         let date = dateSelected.value
 
-        // store the date to pass along to the add row function
+        // // store the date to pass along to the add row function
 
-       newWorkoutDate = date
+        // newWorkoutDate = date
 
         // get a new url
-        let newWorkoutUrl = `/.netlify/functions/new_workout?date=${date}`
+        let newWorkoutUrl = `/.netlify/functions/new_workout?date=${date}&userId=${user.uid}`
         
         // Get the response
         let newWorkoutResponse = await fetch(newWorkoutUrl)
         // Ask for the json-formatted data
         let newWorkoutJson = await newWorkoutResponse.json()
+        console.log(newWorkoutJson)
         console.log(`Workout created for ${date}`)
 
+      
       })
     }
 
@@ -201,12 +203,17 @@ firebase.auth().onAuthStateChanged(async function (user) {
 
         // store the user-inputted image URL in memory
         let rating = ratingInput.value
+
+        // get a reference to the input
+        let dateSelected = document.querySelector(`#workout-date`)
+        // get the date
+        let date = dateSelected.value
         // console.log(rating)
         // console.log(user.uid)
         // console.log(newWorkoutDate)
 
       // // create the URL for our "create post" lambda function
-      let addRowUrl = `/.netlify/functions/addrow?exerciseName=${exerciseName}&repsOrTime=${repsOrTime}&weight=${weight}&rating=${rating}&userId=${user.uid}&newWorkoutDate=${newWorkoutDate}`
+      let addRowUrl = `/.netlify/functions/addrow?exerciseName=${exerciseName}&repsOrTime=${repsOrTime}&weight=${weight}&rating=${rating}&userId=${user.uid}&date=${date}`
       // console.log(addRowUrl)
 
       // // fetch the URL, wait for the response, store the response in memory

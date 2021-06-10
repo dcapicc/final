@@ -11,7 +11,7 @@ exports.handler = async function(event) {
   let userId = event.queryStringParameters.userId
 
   // perform a query against the firestore for all the workouts
-  let workoutsQuery = await db.collection(`workouts`).where(`date`, `==`, date).get()
+  let workoutsQuery = await db.collection(`workouts`).where(`date`, `==`, date).where(`userId`, `==`, userId).get()
 
   // retreive the documents from the query
   let workouts = workoutsQuery.docs
@@ -47,6 +47,7 @@ exports.handler = async function(event) {
       let exerciseRef = await db.collection(`exercises`).doc(exerciseId).get()
 
       let exercise = exerciseRef.data()
+
       
       // Create an object to be added to the return value
       let activityObject = {

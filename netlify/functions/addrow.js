@@ -12,7 +12,7 @@ exports.handler = async function(event) {
     let weight = event.queryStringParameters.weight
     let rating = event.queryStringParameters.rating
     let userId = event.queryStringParameters.userId
-    let date = event.queryStringParameters.newWorkoutDate
+    let date = event.queryStringParameters.date
 
     console.log(exerciseName)
     // establish a connection firebase in memory
@@ -26,6 +26,12 @@ exports.handler = async function(event) {
     let exercise = exerciseQuery.docs[0]
     let exerciseId = exercise.id 
     console.log(exerciseId)
+    // Search for a workout with that user ID and for that date
+    let workoutIdQuery = await db.collection(`workouts`).where(`date`, `==`, date).where(`userId`, `==`, userId).get()
+    // Retrieve workout ID
+    let workout = workoutIdQuery.docs[0]
+    let workoutId = workout.id
+    console.log(workoutId)
 
     // create a new set in the activities database
 
@@ -36,7 +42,7 @@ exports.handler = async function(event) {
         weight: weight,
         rating: rating,
         userId: userId,
-        date: date 
+        workoutId: workoutId 
     }
 
     await db.collection(`activities`).add(returnValue)
